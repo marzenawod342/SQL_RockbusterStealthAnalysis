@@ -16,7 +16,7 @@ the main questions they’d like to answer:
 For the analysis, Rockbuster’s relational database management system and PostgreSQL were utilized. 
 Data handling was performed using pgAdmin 4 and PostgreSQL, while visualizations were created with Tableau Public.
 
-### Key data points encompass:
+### Key data points
 - Film Inventory: Details about available movies, genres, and rental durations.
 - Customer Information: Data on customer demographics and rental behavior.
 - Payments: Records of transactions and revenue details.
