@@ -22,4 +22,4 @@ Data handling was performed using pgAdmin 4 and PostgreSQL, while visualizations
 - Payments: Records of transactions and revenue details.
   
 ## Visulizations
-[https://public.tableau.com/app/profile/marzena.wodzisz/viz/RockbusterStealthDataAnalysis_17236720538720/RockbusteStealthDataAnalysis?publish=yes](url)
+[Visualizations on Tableau Public](https://public.tableau.com/app/profile/marzena.wodzisz/viz/RockbusterStealthDataAnalysis_17236720538720/RockbusteStealthDataAnalysis?publish=yes)
