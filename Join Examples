@@ -1,0 +1,52 @@
+# Query to find the top 10 countries for Rockbuster in terms of customer numbers
+
+SELECT country.country,
+  COUNT(customer_id) AS customer_count
+FROM customer
+INNER JOIN address ON customer.address_id = address.address_id
+INNER JOIN city ON address.city_id = city.city_id
+INNER JOIN country ON city.country_id = country.country_id
+GROUP BY country.country
+ORDER BY customer_count DESC
+LIMIT 10;
+
+# Query to find the top 5 customers from the top 10 cities who’ve paid the highest total amounts to Rockbuster.
+
+SELECT
+  customer.customer_id,
+  customer.first_name,
+  customer.last_name,
+  country.country,
+  city.city,
+  SUM(payment.amount) AS total_amount_paid
+FROM customer
+INNER JOIN address ON customer.address_id = address.address_id
+INNER JOIN city ON address.city_id = city.city_id
+INNER JOIN country ON city.country_id = country.country_id
+INNER JOIN rental ON customer.customer_id = rental.customer_id
+INNER JOIN payment ON rental.rental_id = payment.rental_id
+--- select top 10 cities in top 10 countries
+WHERE city.city IN (
+  SELECT city.city
+  FROM customer
+  INNER JOIN address ON customer.address_id = address.address_id
+  INNER JOIN city ON address.city_id = city.city_id
+  INNER JOIN country ON city.country_id = country.country_id
+  WHERE country.country IN (
+    SELECT country.country
+    FROM customer
+    INNER JOIN address ON customer.address_id = address.address_id
+    INNER JOIN city ON address.city_id = city.city_id
+    INNER JOIN country ON city.country_id = country.country_id
+    GROUP BY country.country
+    ORDER BY COUNT (customer.customer_id) DESC
+    LIMIT 10
+  )
+  GROUP BY city.city, country.country
+  ORDER BY COUNT (customer.customer_id) DESC
+  LIMIT 10
+)
+GROUP BY customer.customer_id, customer.first_name, customer.last_name, country.country, city.city
+ORDER BY total_amount_paid DESC
+LIMIT 5;
+
